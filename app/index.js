@@ -50,27 +50,21 @@ SilexGenerator.prototype.askFor = function askFor() {
   console.log(welcome);
 
   var prompts = [{
-      name: 'compassBootstrap',
-      message: 'Would you like to include Twitter Bootstrap for Sass?',
-      default: 'Y/n',
-      warning: 'Yes: All Twitter Bootstrap files will be placed into the styles directory.'
+    type: 'confirm',
+    name: 'compassBootstrap',
+    message: 'Would you like to include Twitter Bootstrap for Sass?'
   },
-      {
-          name: 'includeRequireJS',
-          message: 'Would you like to include RequireJS (for AMD support)?',
-          default: 'Y/n',
-          warning: 'Yes: RequireJS will be placed into the JavaScript vendor directory.'
-      }];
+  {
+    type: 'confirm',
+    name: 'includeRequireJS',
+    message: 'Would you like to include RequireJS (for AMD support)?'
+  }];
 
-  this.prompt(prompts, function (err, props) {
-    if (err) {
-      return this.emit('error', err);
-    }
-
+  this.prompt(prompts, function (props) {
       // manually deal with the response, get back and store the results.
       // we change a bit this way of doing to automatically do this in the self.prompt() method.
-      this.compassBootstrap = (/y/i).test(props.compassBootstrap);
-      this.includeRequireJS = (/y/i).test(props.includeRequireJS);
+      this.compassBootstrap = props.compassBootstrap;
+      this.includeRequireJS = props.includeRequireJS;
 
     cb();
   }.bind(this));
